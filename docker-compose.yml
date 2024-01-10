@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres:15-alpine3.18
+    container_name: ecommerce-db
+    environment:
+      - 'POSTGRES_DB=ecommerce'
+      - 'POSTGRES_PASSWORD=1234'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '128M'
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'ecommerce-db-vol:/var/lib/postgresql/data/'
+
+volumes:
+  ecommerce-db-vol:
